@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haydovchilar Ma'lumotlari</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-mode">
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-truck"></i> Haydovchilar Ma'lumotlari</h1>
+            <div class="theme-toggle">
+                <i class="fas fa-moon"></i>
+                <label class="switch">
+                    <input type="checkbox" id="themeSwitch">
+                    <span class="slider round"></span>
+                </label>
+                <i class="fas fa-sun"></i>
+            </div>
+        </header>
+
+        <div class="controls">
+            <button id="addDriverBtn" class="btn-primary"><i class="fas fa-plus"></i> Yangi Haydovchi</button>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Qidirish...">
+                <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="filters">
+                <select id="regionFilter">
+                    <option value="">Barcha viloyatlar</option>
+                    <!-- Viloyatlar JavaScript orqali qo'shiladi -->
+                </select>
+                <select id="districtFilter">
+                    <option value="">Barcha tumanlar</option>
+                </select>
+                <select id="carTypeFilter">
+                    <option value="">Barcha moshina turlari</option>
+                    <!-- Moshina turlari JavaScript orqali qo'shiladi -->
+                </select>
+                <select id="statusFilter">
+                    <option value="">Barcha statuslar</option>
+                    <option value="yuk_bor">Yuk bor</option>
+                    <option value="yuk_yoq">Yuk yo'q</option>
+                    <option value="noma'lum">Noma'lum</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="drivers-list">
+            <div class="today-section">
+                <h2><i class="fas fa-star"></i> Bugun qo'shilgan/tahrirlanganlar</h2>
+                <div id="todayDrivers" class="drivers-grid"></div>
+            </div>
+            <div class="all-section">
+                <h2><i class="fas fa-list"></i> Barcha haydovchilar</h2>
+                <div id="allDrivers" class="drivers-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal oynasi (Yangi haydovchi qo'shish/tahrirlash) -->
+    <div id="driverModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="modalTitle">Yangi Haydovchi Qo'shish</h2>
+            <form id="driverForm">
+                <div class="form-group">
+                    <label for="driverName">Ism</label>
+                    <input type="text" id="driverName" required>
+                </div>
+                <div class="form-group">
+                    <label for="driverPhone">Telefon Raqami (90-636-27-04)</label>
+                    <input type="text" id="driverPhone" pattern="\d{2}-\d{3}-\d{2}-\d{2}" required>
+                </div>
+                <div class="form-group">
+                    <label for="carType">Moshina Turi</label>
+                    <select id="carType" required>
+                        <option value="">Tanlang</option>
+                        <!-- Moshina turlari JavaScript orqali qo'shiladi -->
+                    </select>
+                    <input type="text" id="customCarType" placeholder="Yangi moshina turi" style="display: none; margin-top: 5px;">
+                    <button type="button" id="addCarTypeBtn" class="btn-small">+ Yangi tur</button>
+                </div>
+                <div class="form-group">
+                    <label for="region">Viloyat</label>
+                    <select id="region" required>
+                        <option value="">Tanlang</option>
+                        <!-- Viloyatlar JavaScript orqali qo'shiladi -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="district">Tuman</label>
+                    <select id="district" required>
+                        <option value="">Tanlang</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="direction">Yo'nalish</label>
+                    <select id="direction" required>
+                        <option value="">Tanlang</option>
+                        <!-- Viloyatlar JavaScript orqali qo'shiladi -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Izoh</label>
+                    <textarea id="notes" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Yuk Holati</label>
+                    <div class="status-radio">
+                        <label>
+                            <input type="radio" name="status" value="yuk_bor" checked>
+                            <span class="radio-btn yuk-bor"></span> Yuk bor
+                        </label>
+                        <label>
+                            <input type="radio" name="status" value="yuk_yoq">
+                            <span class="radio-btn yuk-yoq"></span> Yuk yo'q
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary">Saqlash</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
